@@ -5,7 +5,7 @@ public class QueryProcessor {
 
     public int yesnoFlag = 0;
     public int whFlag = 0;
-
+    public String sqlQuery = "";
     public QueryProcessor(){
 
     }
@@ -24,8 +24,14 @@ public class QueryProcessor {
         }
     }
 
+
+    public void scanQuery(String currentQuery){
+        if(currentQuery.contains(" by ")){
+            //build SQL query on Director table
+        }
+    }
     public String buildSQLQuery(String currentQuery){
-        String sqlQuery = "";
+     //   String sqlQuery = "";
         if(yesnoFlag == 1 && whFlag == 0){
             sqlQuery = "SELECT COUNT(*)";
         }
