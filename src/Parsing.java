@@ -39,6 +39,7 @@ public class Parsing {
     public static String print_tree(String t) {
         String text = t;
         String tree_string = "";
+
         List<Tree> trees = parse(text);
         for (Tree tree : trees) {
             tree_string += tree.toString();
@@ -68,12 +69,13 @@ public class Parsing {
                     continue;
                 }
                 else{
+                    i++;
                     while(tree.charAt(i) != ')'){
-                        pos += tree.charAt(i);
+                        word += tree.charAt(i);
                         i++;
                     }
                     Tuple tup = new Tuple(word,pos);
-                    System.out.println(pos + " " + word);
+                    //System.out.println(pos + " " + word);
                     word = "";
                     pos = "";
                     list.add(tup);
@@ -81,32 +83,54 @@ public class Parsing {
                 }
             }
         }
+        for(int i = 1; i <list.size(); i++)
+        {
+            if(list.get(i).getWord().contains("'") && list.get(i).getPos().equals("POS"))
+            {
+                list.get(i-1).setWord(list.get(i - 1).getWord() + list.get(i).getWord());
+                list.remove(i);
+            }
+        }
+        for (int i = 1; i < list.size(); i++)
+        {
+            if(list.get(i).getPos().contains("NN") && list.get(i - 1).getPos().contains("NN"))
+            {
+                list.get(i - 1).setWord( list.get(i - 1).getWord() + " " + list.get(i).getWord());
+                list.remove(i);
+            }
+
+        }
+
+        for(Tuple t: list)
+        {
+            System.out.println(t.getPos() + " " + t.getWord());
+        }
         return list;
     }
 
-//    public static void main(String args[])
-//    {
-//        String s = "Who won the oscar for best actor in 2005?";
-//        String tree = print_tree(s);
-//        ArrayList<Tuple> posTags = POS(tree);
-//        Tuple t = posTags.get(0);
-//        if(t.getWord().toUpperCase().equals("IS")||t.getWord().toUpperCase().equals("WAS"))
-//        {
-//            //yes to-be category
-//        }
-//        else if(t.getWord().toUpperCase().equals("DID"))
-//        {
-//            //yes do question
-//        }
-//        else if(t.getWord().toUpperCase().equals("WHO") ||
-//                t.getWord().toUpperCase().equals("WHICH")||
-//                t.getWord().toUpperCase().equals("WHEN"))
-//        {
-//            //Wh-question
-//        }
-//        else{
-//            //unknown question
-//        }
-//        //System.out.println(tree);
-//    }
+/*	  public static void main(String args[])
+	  {
+		  String s = "Was Loren born in Italy?";
+		  String tree = print_tree(s);
+		  ArrayList<Tuple> posTags = POS(tree);
+		  Tuple t = posTags.get(0);
+		  if(t.getWord().toUpperCase().equals("IS")||t.getWord().toUpperCase().equals("WAS"))
+		  {
+			  //yes to-be category
+		  }
+		  else if(t.getWord().toUpperCase().equals("DID"))
+		  {
+			  //yes do question
+		  }
+		  else if(t.getWord().toUpperCase().equals("WHO") ||
+				  t.getWord().toUpperCase().equals("WHICH")||
+				  t.getWord().toUpperCase().equals("WHEN"))
+		  {
+			  //Wh-question
+		  }
+		  else{
+			  //unknown question
+		  }
+		  //System.out.println(tree);
+	}*/
 }

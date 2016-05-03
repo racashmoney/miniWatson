@@ -58,12 +58,13 @@ public class CS421_Project2
 
     public static void printSQL(){
         //TODO update this to get and print appropriate SQL
-        sqlQuery = "SELECT COUNT(*) FROM Actor;"; // map currentQuery to sqlQuery
+        //sqlQuery = "SELECT COUNT(*) FROM Actor;"; // map currentQuery to sqlQuery
+        sqlQuery = processor.buildSQLQuery(currentQuery);
         System.out.println("<SQL>\n" + sqlQuery);
     }
     public static void printAnswer(){
         String answer = "";
-        if(processor.getYesnoFlag() == 1 && processor.getWhFlag() ==0){
+        if(processor.getFlag() == 1 || processor.getFlag()==2){
             if(db.executeYesNoQuery(sqlQuery)) answer = "Yes";
             else answer = "No";
         }

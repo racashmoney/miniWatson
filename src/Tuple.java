@@ -1,3 +1,5 @@
+//package Part2;
+
 public class Tuple{
 
     private String word;
@@ -17,5 +19,10 @@ public class Tuple{
     public String getPos()
     {
         return pos;
+    }
+
+    public void setWord(String word)
+    {
+        this.word = word;
     }
 }
