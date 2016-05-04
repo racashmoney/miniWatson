@@ -1,5 +1,11 @@
 //package Part2;
 
+
+/* Class that creates a parse tree and makes movies and proper names
+ * appropriate such as Schindler's List being one entity or The Revenant
+ * and also works with proper names if given someone with a first and last name such as
+ * Leonardo DiCaprio
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -49,7 +55,8 @@ public class Parsing {
         return tree_string;
     }
 
-
+    //Function goes through and attempt to parse the tree into a tuple
+    //so it is easier to read the parts of speech for the text
     public static ArrayList<Tuple> POS(String tree){
 
         ArrayList<Tuple> list = new ArrayList<Tuple>();
@@ -100,6 +107,14 @@ public class Parsing {
             }
 
         }
+        for (int i = 1; i < list.size(); i++)
+        {
+            if(list.get(i).getPos().equals("NNP") && list.get(i-1).getWord().equals("The")){
+                list.get(i).setWord((list.get(i - 1).getWord() + " " + list.get(i).getWord()));
+                list.remove(i-1);
+
+            }
+        }
 
         for(Tuple t: list)
         {
@@ -107,7 +122,7 @@ public class Parsing {
         }
         return list;
     }
-
+    //Was a function used to test the POS tuples
 /*	  public static void main(String args[])
 	  {
 		  String s = "Was Loren born in Italy?";

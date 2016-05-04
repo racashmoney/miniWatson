@@ -1,3 +1,5 @@
+//package Part2;
+
 /**
  * NLP Project Part 2
  * Use this as the main class for your project.
@@ -35,7 +37,8 @@ public class CS421_Project2
         do{
             System.out.print(">");
             input =keyboard.nextLine().trim();
-
+            String tree = Parsing.print_tree(input);
+            Parsing.POS(tree);
             if(!input.equalsIgnoreCase("q")){
                 currentQuery = input;
                 System.out.println("<QUERY>\n" + currentQuery);
@@ -52,22 +55,29 @@ public class CS421_Project2
 
         keyboard.close();
         System.out.println("Goodbye.");
-    //    System.exit(0);
+        //    System.exit(0);
 
     }
 
     public static void printSQL(){
+        QueryProcessor q = new QueryProcessor();
         //TODO update this to get and print appropriate SQL
-        //sqlQuery = "SELECT COUNT(*) FROM Actor;"; // map currentQuery to sqlQuery
-        sqlQuery = processor.buildSQLQuery(currentQuery);
+
+        sqlQuery = q.buildSQLQuery(currentQuery);
         System.out.println("<SQL>\n" + sqlQuery);
     }
     public static void printAnswer(){
         String answer = "";
-        if(processor.getFlag() == 1 || processor.getFlag()==2){
-            if(db.executeYesNoQuery(sqlQuery)) answer = "Yes";
-            else answer = "No";
+        if(processor.getFlag() == 1 || processor.getFlag() == 2){
+            if(db.executeYesNoQuery(sqlQuery) == true)
+                answer = "Yes";
+            else
+                answer = "No";
         }
+        if(processor.getFlag() == 3){
+            answer = db.executeWhQuery(sqlQuery);
+        }
+
 
         System.out.println("<ANSWER>\n" + answer);
     }
