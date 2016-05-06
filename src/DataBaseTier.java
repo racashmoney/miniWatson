@@ -26,7 +26,7 @@ public class DataBaseTier {
         Connection c = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+"C:/Users/Rakesh/Desktop/SqliteDatabases/oscar-movie_imdb.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:"+"oscar-movie_imdb.sqlite");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
@@ -64,7 +64,7 @@ public class DataBaseTier {
         String answer = "";
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:"+"C:/Users/Rakesh/Desktop/SqliteDatabases/oscar-movie_imdb.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:"+"oscar-movie_imdb.sqlite");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
